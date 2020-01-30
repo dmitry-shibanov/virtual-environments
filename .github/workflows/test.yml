@@ -1,0 +1,12 @@
+name: Test
+on:
+  issue_comment:
+    types: [created]
+jobs:
+  build:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: test
+        run: |
+          echo "We did it"
