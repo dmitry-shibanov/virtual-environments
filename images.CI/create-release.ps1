@@ -7,20 +7,18 @@ param(
     [String] [Parameter (Mandatory = $True)] $AccessToken
 )
 
-$Body = @"
-{
-    "definitionId" : "$DefinitionId",
-    "variables" : {
-        "ImageBuildId" : {
-            "value" : "$BuildId"
-        },
-        "ImageName" : {
-            "value" : "$ImageName"
-        }
-    },
-    "isDraft" : "false"
-}
-"@
+$Body = @{
+    definitionId = $DefinitionId
+    variables = @{
+      ImageBuildId = @{
+        value = $BuildId
+      }
+      ImageName = @{
+        value = $ImageName
+      }
+    }
+    isDraft = "false"
+} | ConvertTo-Json -Depth 3
 
 $URL = "https://vsrm.dev.azure.com/$Organization/$Project/_apis/release/releases?api-version=5.1"
 $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("'':${AccessToken}"))
@@ -30,4 +28,4 @@ $headers = @{
 
 $NewRelease = Invoke-RestMethod $URL -Body $Body -Method "POST" -Headers $headers -ContentType "application/json"
 
-Write-Host "Created release: $($NewRelease.release._links.web.refs)"
+Write-Host "Created release: $($NewRelease.environments[0].release._links.web.href)"

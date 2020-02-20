@@ -26,7 +26,7 @@ jobs:
                         -GitHubFeedToken $(GITHUB_TOKEN)
 
   - task: PowerShell@2
-    displayName: 'Deploy VM'
+    displayName: 'Create release for VM deployment'
     inputs:
       targetType: filePath
       filePath: ./images.CI/create-release.ps1
