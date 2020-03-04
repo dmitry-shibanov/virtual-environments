@@ -9,7 +9,7 @@ source $HELPER_SCRIPTS/document.sh
 source $HELPER_SCRIPTS/apt.sh
 
 set -e
-
+add-apt-repository ppa:rmescandon/yq
 # Install basic command-line utilities
 apt-fast install -y --no-install-recommends \
     curl \
@@ -34,6 +34,7 @@ apt-fast install -y --no-install-recommends \
     tzdata \
     unzip \
     upx \
+    yq \
     wget \
     zip \
     zstd

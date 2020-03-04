@@ -127,6 +127,10 @@ apt-get install -y --no-install-recommends curl
 echo "Install parallel"
 apt-get install -y --no-install-recommends parallel
 
+echo "Install yq"
+add-apt-repository ppa:rmescandon/yq
+apt install yq -y
+
 # Run tests to determine that the software installed as expected
 echo "Testing to make sure that script performed as expected, and basic scenarios work"
 for cmd in curl file ftp jq netcat ssh parallel rsync shellcheck sudo telnet time unzip wget zip; do
