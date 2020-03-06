@@ -7,7 +7,7 @@
 # Source the helpers for use with the script
 source $HELPER_SCRIPTS/document.sh
 golangTags="/tmp/golang_tags.json"
-GO_VERSIONS_TEST=$GO_VERSIONS
+
 # This function installs Go using the specified arguments:
 #   $1=MajorVersion (1.11)
 #   $2=IsDefaultVersion (true or false)
@@ -44,9 +44,10 @@ function getFullGoVersion () {
 
 # load golang_tags.json file
 curl -s 'https://api.github.com/repos/golang/go/git/refs/tags' >> $golangTags
-echo "GO_VERSIONS is $GO_VERSIONS_TEST"
+echo "GO_VERSIONS is $GO_VERSIONS"
+read -ra GO_VERSIONS_ARR <<< "$GO_VERSIONS"
 # Install Go versions
-for go in ${GO_VERSIONS_TEST}; do
+for go in ${GO_VERSIONS_ARR[@]}; do
     echo "Installing Go ${go}"
     if [[ $go == $GO_DEFAULT ]]; then
         InstallGo $go true
