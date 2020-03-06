@@ -45,6 +45,7 @@ function getFullGoVersion () {
 # load golang_tags.json file
 curl -s 'https://api.github.com/repos/golang/go/git/refs/tags' >> $golangTags
 echo "GO_VERSIONS is $GO_VERSIONS"
+IFS='-'
 read -ra GO_VERSIONS_ARR <<< "$GO_VERSIONS"
 # Install Go versions
 for go in ${GO_VERSIONS_ARR[@]}; do
@@ -55,3 +56,4 @@ for go in ${GO_VERSIONS_ARR[@]}; do
         InstallGo $go false
     fi
 done
+IFS=' '
