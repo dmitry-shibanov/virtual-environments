@@ -30,7 +30,7 @@ function Get-GoVersion
     }
     else
     {
-        Write-Host "Unable to determine Go version at " + $goRootPath
+        Write-Host "Unable to determine Go version at " + $goPath
         exit 1
     }
 }
