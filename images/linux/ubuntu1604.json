@@ -85,7 +85,7 @@
                 "GO_VERSIONS={{user `go_versions_install`}}",
                 "GO_DEFAULT={{user `go_default`}}"
             ],
-            "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} {{ .Path }}"
+            "execute_command": "chmod +x {{ .Path }}; sudo {{ .Vars }} {{ .Path }}"
         },
         {
             "type": "shell",
