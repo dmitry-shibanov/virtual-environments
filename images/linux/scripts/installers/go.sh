@@ -7,3 +7,6 @@
 # Source the helpers for use with the script
 echo "just to check"
 echo "GO_VERSIONS are ${GO_VERSIONS}"
+for i in ${GO_VERSIONS}; do
+    echo "$i"
+done
