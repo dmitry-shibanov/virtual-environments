@@ -6,3 +6,4 @@
 
 # Source the helpers for use with the script
 echo "just to check"
+echo "GO_VERSIONS are ${GO_VERSIONS}"
