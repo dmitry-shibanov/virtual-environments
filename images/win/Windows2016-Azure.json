@@ -140,6 +140,26 @@
         },
         {
             "type": "powershell",
+            "environment_vars": [
+                "GO_VERSIONS={{user `go_versions`}}",
+                "GO_DEFAULT={{user `go_default`}}"
+            ],
+            "scripts":[
+                "{{ template_dir }}/scripts/Installers/Install-Go.ps1"
+            ]
+        },
+        {
+            "type": "powershell",
+            "environment_vars": [
+                "GO_VERSIONS={{user `go_versions`}}",
+                "GO_DEFAULT={{ user `go_default`}}"
+            ],
+            "scripts":[
+                "{{ template_dir }}/scripts/Installers/Validate-Go.ps1"
+            ]
+        },
+        {
+            "type": "powershell",
             "scripts":[
                 "{{ template_dir }}/scripts/Installers/Validate-Docker.ps1"
             ]
@@ -310,16 +330,6 @@
             "type": "powershell",
             "scripts":[
                 "{{ template_dir }}/scripts/Installers/Install-Git.ps1"
-            ]
-        },
-        {
-            "type": "powershell",
-            "environment_vars": [
-                "GO_VERSIONS={{user `go_versions`}}",
-                "GO_DEFAULT={{user `go_default`}}"
-            ],
-            "scripts":[
-                "{{ template_dir }}/scripts/Installers/Install-Go.ps1"
             ]
         },
         {
@@ -619,16 +629,6 @@
             "type": "powershell",
             "scripts":[
                 "{{ template_dir }}/scripts/Installers/Validate-Git.ps1"
-            ]
-        },
-        {
-            "type": "powershell",
-            "environment_vars": [
-                "GO_VERSIONS={{user `go_versions`}}",
-                "GO_DEFAULT={{ user `go_default`}}"
-            ],
-            "scripts":[
-                "{{ template_dir }}/scripts/Installers/Validate-Go.ps1"
             ]
         },
         {
