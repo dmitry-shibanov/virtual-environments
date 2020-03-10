@@ -140,38 +140,6 @@
         },
         {
             "type": "powershell",
-            "environment_vars": [
-                "GO_VERSIONS={{user `go_versions`}}",
-                "GO_DEFAULT={{user `go_default`}}"
-            ],
-            "scripts":[
-                "{{ template_dir }}/scripts/Installers/Install-Go.ps1"
-            ]
-        },
-        {
-            "type": "powershell",
-            "environment_vars": [
-                "GO_VERSIONS={{user `go_versions`}}",
-                "GO_DEFAULT={{ user `go_default`}}"
-            ],
-            "scripts":[
-                "{{ template_dir }}/scripts/Installers/Validate-Go.ps1"
-            ]
-        },
-        {
-            "type": "powershell",
-            "scripts":[
-                "{{ template_dir }}/scripts/Installers/Validate-Docker.ps1"
-            ]
-        },
-        {
-            "type": "powershell",
-            "scripts":[
-                "{{ template_dir }}/scripts/Installers/Validate-PowershellCore.ps1"
-            ]
-        },
-        {
-            "type": "powershell",
             "scripts":[
                 "{{ template_dir }}/scripts/Installers/Windows2016/Update-DockerImages.ps1"
             ]
@@ -212,6 +180,26 @@
         {
             "type": "windows-restart",
             "restart_timeout": "30m"
+        },
+        {
+            "type": "powershell",
+            "environment_vars": [
+                "GO_VERSIONS={{user `go_versions`}}",
+                "GO_DEFAULT={{user `go_default`}}"
+            ],
+            "scripts":[
+                "{{ template_dir }}/scripts/Installers/Install-Go.ps1"
+            ]
+        },
+        {
+            "type": "powershell",
+            "environment_vars": [
+                "GO_VERSIONS={{user `go_versions`}}",
+                "GO_DEFAULT={{ user `go_default`}}"
+            ],
+            "scripts":[
+                "{{ template_dir }}/scripts/Installers/Validate-Go.ps1"
+            ]
         },
         {
             "type": "powershell",
