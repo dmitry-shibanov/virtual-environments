@@ -22,13 +22,13 @@ apt-get -y install zulu-7-azure-jdk=\*
 echo "JAVA_HOME_7_X64=/usr/lib/jvm/zulu-7-azure-amd64" | tee -a /etc/environment
 
 wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
-sudo apt-get install -y software-properties-common
+# sudo apt-get install -y software-properties-common
 sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
 
 # This function installs Java using the specified arguments:
 #   $1=Version (8)
 function InstallJava () {
-    sudo apt-get install adoptopenjdk-$1-hotspot
+    sudo apt install adoptopenjdk-$1-hotspot
     # If this version of Java is to be the default version
     if [[ $1 == $DEFAULT_JDK_VERSION ]]; then
         echo "JAVA_HOME=/usr/lib/jvm/adoptopenjdk-$DEFAULT_JDK_VERSION-hotspot-amd64" | tee -a /etc/environment
