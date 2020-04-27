@@ -8,24 +8,40 @@
 source $HELPER_SCRIPTS/document.sh
 
 DEFAULT_JDK_VERSION=8
+JAVA_VERSIONS="8 11 12"
 
 set -e
 
+# pre requirements
 # Install the Azul Systems Zulu JDKs
 # See https://www.azul.com/downloads/azure-only/zulu/
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0xB1998361219BD9C9
 apt-add-repository "deb http://repos.azul.com/azure-only/zulu/apt stable main"
 apt-get -q update
 apt-get -y install zulu-7-azure-jdk=\*
-apt-get -y install zulu-8-azure-jdk=\*
-apt-get -y install zulu-11-azure-jdk=\*
-apt-get -y install zulu-12-azure-jdk=\*
-update-java-alternatives -s /usr/lib/jvm/zulu-8-azure-amd64
 echo "JAVA_HOME_7_X64=/usr/lib/jvm/zulu-7-azure-amd64" | tee -a /etc/environment
-echo "JAVA_HOME_8_X64=/usr/lib/jvm/zulu-8-azure-amd64" | tee -a /etc/environment
-echo "JAVA_HOME_11_X64=/usr/lib/jvm/zulu-11-azure-amd64" | tee -a /etc/environment
-echo "JAVA_HOME_12_X64=/usr/lib/jvm/zulu-12-azure-amd64" | tee -a /etc/environment
-echo "JAVA_HOME=/usr/lib/jvm/zulu-${DEFAULT_JDK_VERSION}-azure-amd64" | tee -a /etc/environment
+
+wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
+sudo apt-get install -y software-properties-common
+sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
+
+# This function installs Java using the specified arguments:
+#   $1=Version (8)
+function InstallJava () {
+    sudo apt-get install adoptopenjdk-$1-hotspot
+    # If this version of Java is to be the default version
+    if [[ $1 == $DEFAULT_JDK_VERSION ]]; then
+        echo "JAVA_HOME=/usr/lib/jvm/adoptopenjdk-$DEFAULT_JDK_VERSION-hotspot-amd64" | tee -a /etc/environment
+    else
+        echo "JAVA_HOME_$1_X64=/usr/lib/jvm/adoptopenjdk-$1-hotspot-amd64" | tee -a /etc/environment
+    fi
+}
+
+# installing java versions
+for java_version in ${JAVA_VERSIONS}; do
+    InstallJava $java_version
+done
+
 echo "JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8" | tee -a /etc/environment
 
 # Install Ant
@@ -70,9 +86,9 @@ done
 echo "Lastly, documenting what we added to the metadata file"
 DocumentInstalledItem "Azul Zulu OpenJDK:"
 DocumentInstalledItemIndent "7 ($(/usr/lib/jvm/zulu-7-azure-amd64/bin/java -showversion |& head -n 1))"
-DocumentInstalledItemIndent "8 ($(/usr/lib/jvm/zulu-8-azure-amd64/bin/java -showversion |& head -n 1)) (default)"
-DocumentInstalledItemIndent "11 ($(/usr/lib/jvm/zulu-11-azure-amd64/bin/java -showversion |& head -n 1))"
-DocumentInstalledItemIndent "12 ($(/usr/lib/jvm/zulu-12-azure-amd64/bin/java -showversion |& head -n 1))"
+DocumentInstalledItemIndent "8 ($(/usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/bin/java -showversion |& head -n 1)) (default)"
+DocumentInstalledItemIndent "11 ($(/usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/bin/java -showversion |& head -n 1))"
+DocumentInstalledItemIndent "12 ($(/usr/lib/jvm/adoptopenjdk-12-hotspot-amd64/bin/java -showversion |& head -n 1))"
 DocumentInstalledItem "Ant ($(ant -version))"
 DocumentInstalledItem "Gradle ${gradleVersion}"
 DocumentInstalledItem "Maven ($(mvn -version | head -n 1))"
