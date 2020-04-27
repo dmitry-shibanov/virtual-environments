@@ -39,7 +39,7 @@ foreach ($pathSegment in $pathSegments)
         $newPathSegments += $pathSegment
     }
 }
-
+ls C:\Program Files\Java
 $java7Installs = Get-ChildItem -Path 'C:\Program Files\Java' -Filter '*azure-jdk*7*' | Sort-Object -Property Name -Descending | Select-Object -First 1
 $latestJava7Install = $java7Installs.FullName;
 
