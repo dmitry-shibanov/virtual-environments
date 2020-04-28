@@ -6,7 +6,7 @@
 # Download the Azul Systems Zulu JDKs
 # See https://www.azul.com/downloads/azure-only/zulu/
 $azulJDK7Uri = 'https://repos.azul.com/azure-only/zulu/packages/zulu-7/7u232/zulu-7-azure-jdk_7.31.0.5-7.0.232-win_x64.zip'
-$adoptopenJDK8Uri = 'https://adoptopenjdk.net/installation.html?variant=openjdk8&jvmVariant=hotspot#x64_win-jdk'
+$adoptopenJDK8Uri = 'https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u252-b09.1/OpenJDK8U-jdk_x64_windows_hotspot_8u252b09.zip'
 $adoptopenJDK11Uri = 'https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.7%2B10.2/OpenJDK11U-jdk_x64_windows_hotspot_11.0.7_10.zip'
 
 cd $env:TEMP
@@ -43,10 +43,10 @@ ls 'C:\Program Files\Java'
 $java7Installs = Get-ChildItem -Path 'C:\Program Files\Java' -Filter '*azure-jdk*7*' | Sort-Object -Property Name -Descending | Select-Object -First 1
 $latestJava7Install = $java7Installs.FullName;
 
-$java8Installs = Get-ChildItem -Path 'C:\Program Files\Java' -Filter '*adoptopenjdk-8*' | Sort-Object -Property Name -Descending | Select-Object -First 1
+$java8Installs = Get-ChildItem -Path 'C:\Program Files\Java' -Filter 'jdk8u252*' | Sort-Object -Property Name -Descending | Select-Object -First 1
 $latestJava8Install = $java8Installs.FullName;
 
-$java11Installs = Get-ChildItem -Path 'C:\Program Files\Java' -Filter '*adoptopenjdk-11*' | Sort-Object -Property Name -Descending | Select-Object -First 1
+$java11Installs = Get-ChildItem -Path 'C:\Program Files\Java' -Filter 'jdk-11.0.7*' | Sort-Object -Property Name -Descending | Select-Object -First 1
 $latestJava11Install = $java11Installs.FullName;
 
 $newPath = [string]::Join(';', $newPathSegments)
