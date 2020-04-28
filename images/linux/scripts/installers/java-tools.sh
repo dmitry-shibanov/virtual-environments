@@ -33,6 +33,7 @@ function InstallJava () {
     # If this version of Java is to be the default version
     if [[ $1 == $DEFAULT_JDK_VERSION ]]; then
         echo "JAVA_HOME=/usr/lib/jvm/adoptopenjdk-$DEFAULT_JDK_VERSION-hotspot-amd64" | tee -a /etc/environment
+        update-java-alternatives --set adoptopenjdk-$DEFAULT_JDK_VERSION-hotspot-amd64
     else
         echo "JAVA_HOME_$1_X64=/usr/lib/jvm/adoptopenjdk-$1-hotspot-amd64" | tee -a /etc/environment
     fi
