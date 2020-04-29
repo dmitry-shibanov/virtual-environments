@@ -38,11 +38,12 @@ function InstallJava () {
     fi
 }
 
-update-java-alternatives --set adoptopenjdk-$DEFAULT_JDK_VERSION-hotspot-amd64
 # installing java versions
 for java_version in ${JAVA_VERSIONS}; do
     InstallJava $java_version
 done
+
+update-java-alternatives --set adoptopenjdk-$DEFAULT_JDK_VERSION-hotspot-amd64
 
 echo "JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8" | tee -a /etc/environment
 echo "java version is"
