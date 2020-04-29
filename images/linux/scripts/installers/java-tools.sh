@@ -45,7 +45,8 @@ for java_version in ${JAVA_VERSIONS}; do
 done
 
 echo "JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8" | tee -a /etc/environment
-
+echo "java version is"
+java -version
 # Install Ant
 apt-fast install -y --no-install-recommends ant ant-optional
 echo "ANT_HOME=/usr/share/ant" | tee -a /etc/environment
