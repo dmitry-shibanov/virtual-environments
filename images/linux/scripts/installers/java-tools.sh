@@ -6,11 +6,12 @@
 
 # Source the helpers for use with the script
 source $HELPER_SCRIPTS/document.sh
+source $HELPER_SCRIPTS/os.sh
+
+set -e
 
 DEFAULT_JDK_VERSION=8
 JAVA_VERSIONS="8 11 12"
-
-set -e
 
 # pre requirements
 # Install the Azul Systems Zulu JDKs
@@ -18,8 +19,18 @@ set -e
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0xB1998361219BD9C9
 apt-add-repository "deb http://repos.azul.com/azure-only/zulu/apt stable main"
 apt-get -q update
-apt-get -y install zulu-7-azure-jdk=\*
-echo "JAVA_HOME_7_X64=/usr/lib/jvm/zulu-7-azure-amd64" | tee -a /etc/environment
+
+if isUbuntu16 || isUbuntu18 ; then
+    apt-get -y install zulu-7-azure-jdk=\*
+    echo "JAVA_HOME_7_X64=/usr/lib/jvm/zulu-7-azure-amd64" | tee -a /etc/environment
+    DEFAULT_JDK_VERSION=8
+    defaultLabel8="(default)"
+fi
+
+if isUbuntu20 ; then
+    DEFAULT_JDK_VERSION=11
+    defaultLabel11="(default)"
+fi
 
 wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
 #sudo apt-add-repository 'deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ bionic main'
@@ -89,10 +100,12 @@ done
 # Document what was added to the image
 echo "Lastly, documenting what we added to the metadata file"
 DocumentInstalledItem "Azul Zulu OpenJDK:"
+if isUbuntu16 || isUbuntu18 ; then
 DocumentInstalledItemIndent "7 ($(/usr/lib/jvm/zulu-7-azure-amd64/bin/java -showversion |& head -n 1))"
-DocumentInstalledItemIndent "8 ($(/usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/bin/java -showversion |& head -n 1)) (default)"
-DocumentInstalledItemIndent "11 ($(/usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/bin/java -showversion |& head -n 1))"
+DocumentInstalledItemIndent "8 ($(/usr/lib/jvm/adoptopenjdk-8-hotspot-amd64/bin/java -showversion |& head -n 1)) $defaultLabel8"
+DocumentInstalledItemIndent "11 ($(/usr/lib/jvm/adoptopenjdk-11-hotspot-amd64/bin/java -showversion |& head -n 1)) $defaultLabel11"
 DocumentInstalledItemIndent "12 ($(/usr/lib/jvm/adoptopenjdk-12-hotspot-amd64/bin/java -showversion |& head -n 1))"
+
 DocumentInstalledItem "Ant ($(ant -version))"
 DocumentInstalledItem "Gradle ${gradleVersion}"
 DocumentInstalledItem "Maven ($(mvn -version | head -n 1))"
