@@ -6,6 +6,29 @@
 
 # Source the helpers for use with the script
 source $HELPER_SCRIPTS/document.sh
+source $HELPER_SCRIPTS/os.sh
+
+# Install Azure CLI (instructions taken from https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
+if isUbuntu20 ; then
+    latestVersion=$(pwsh -Command '(Find-Module -Name Az).Version')
+    modulePath="/usr/share/az_$latestVersion"
+    echo "Save Az Module ($latestVersion) to $modulePath"
+    pwsh -Command "Save-Module -Name Az -LiteralPath $modulePath -RequiredVersion $latestVersion -Force"
+
+    # Run tests to determine that the software installed as expected
+    echo "Testing to make sure that script performed as expected, and basic scenarios work"
+    if ! pwsh -Command "\$env:PSModulePath = '${modulePath}:' + \$env:PSModulePath
+        if ( -not (Get-Module -ListAvailable -Name Az.Accounts)) {
+            Write-Host 'Az Module was not installed'
+            exit 1
+        }"; then
+        exit 1
+    fi
+
+    # Document what was added to the image
+    DocumentInstalledItem "Az Module ($latestVersion)"
+    exit 0
+fi
 
 # Install Azure CLI (instructions taken from https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
 sudo pwsh -Command 'Save-Module -Name Az -LiteralPath /usr/share/az_1.0.0 -RequiredVersion 1.0.0 -Force'
@@ -15,6 +38,7 @@ sudo pwsh -Command 'Save-Module -Name Az -LiteralPath /usr/share/az_2.6.0 -Requi
 sudo pwsh -Command 'Save-Module -Name Az -LiteralPath /usr/share/az_2.8.0 -RequiredVersion 2.8.0 -Force'
 sudo pwsh -Command 'Save-Module -Name Az -LiteralPath /usr/share/az_3.1.0 -RequiredVersion 3.1.0 -Force'
 sudo pwsh -Command 'Save-Module -Name Az -LiteralPath /usr/share/az_3.5.0 -RequiredVersion 3.5.0 -Force'
+sudo pwsh -Command 'Save-Module -Name Az -LiteralPath /usr/share/az_3.8.0 -RequiredVersion 3.8.0 -Force'
 
 # Run tests to determine that the software installed as expected
 echo "Testing to make sure that script performed as expected, and basic scenarios work"
@@ -52,6 +76,11 @@ if ! pwsh -Command '$actualPSModulePath = $env:PSModulePath ; $env:PSModulePath 
     if (!(get-module -listavailable -name Az.accounts)) {
         Write-Host "Az Module was not installed"; $env:PSModulePath = $actualPSModulePath; exit 1
     }
+    $env:PSModulePath = $actualPSModulePath
+    $actualPSModulePath = $env:PSModulePath ; $env:PSModulePath = "/usr/share/az_3.8.0:" + $env:PSModulePath;
+    if (!(get-module -listavailable -name Az.accounts)) {
+        Write-Host "Az Module was not installed"; $env:PSModulePath = $actualPSModulePath; exit 1
+    }
     $env:PSModulePath = $actualPSModulePath'; then
     exit 1
 fi
@@ -65,3 +94,4 @@ DocumentInstalledItem "Az Module (2.6.0)"
 DocumentInstalledItem "Az Module (2.8.0)"
 DocumentInstalledItem "Az Module (3.1.0)"
 DocumentInstalledItem "Az Module (3.5.0)"
+DocumentInstalledItem "Az Module (3.8.0)"
