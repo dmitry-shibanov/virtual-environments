@@ -97,4 +97,8 @@ for package in $common_packages $cmd_packages; do
     DocumentInstalledItemIndent $package
 done
 
+echo GRUB_DEFAULT="1>2" | sudo tee -a /etc/default/grub
+sudo update-grub
+uname -a
+
 DocumentInstalledItemIndent "$libcurelVer"
