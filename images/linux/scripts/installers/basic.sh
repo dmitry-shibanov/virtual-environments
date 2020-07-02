@@ -74,6 +74,11 @@ if isUbuntu20 ; then
 fi
 
 apt-get install -y --no-install-recommends $libcurelVer
+if isUbuntu18 ; then
+   cp /usr/lib/x86_64-linux-gnu/libcurl.so.3 /usr/lib/
+   apt-get remove $libcurelVer
+   echo "LD_PRELOAD=/usr/lib/libcurl.so.3" | tee -a /etc/environment
+fi
 
 for package in $common_packages $cmd_packages; do
     echo "Install $package"
