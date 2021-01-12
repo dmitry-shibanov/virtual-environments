@@ -27,7 +27,11 @@ function filter_components_by_version {
 # Set env variable for SDK Root (https://developer.android.com/studio/command-line/variables)
 ANDROID_ROOT=/usr/local/lib/android
 ANDROID_SDK_ROOT=${ANDROID_ROOT}/sdk
+ANDROID_NDK_ROOT=${ANDROID_ROOT}/sdk/ndk-bundle
+ANDROID_NDK_HOME=${ANDROID_ROOT}/sdk/ndk-bundle
 echo "ANDROID_SDK_ROOT=${ANDROID_SDK_ROOT}" | tee -a /etc/environment
+echo "ANDROID_NDK_ROOT=${ANDROID_NDK_ROOT}" | tee -a /etc/environment
+echo "ANDROID_NDK_HOME=${ANDROID_NDK_HOME}" | tee -a /etc/environment
 
 # ANDROID_HOME is deprecated, but older versions of Gradle rely on it
 echo "ANDROID_HOME=${ANDROID_SDK_ROOT}" | tee -a /etc/environment

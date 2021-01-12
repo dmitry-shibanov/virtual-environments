@@ -79,6 +79,7 @@ $ndkRoot = "C:\Program Files (x86)\Android\android-sdk\ndk-bundle"
 if (Test-Path $ndkRoot) {
     setx ANDROID_HOME $sdkRoot /M
     setx ANDROID_SDK_ROOT $sdkRoot /M
+    setx ANDROID_NDK_ROOT $ndkRoot /M
     setx ANDROID_NDK_HOME $ndkRoot /M
     setx ANDROID_NDK_PATH $ndkRoot /M
     (Get-Content -Encoding UTF8 "${ndkRoot}\ndk-build.cmd").replace('%~dp0\build\ndk-build.cmd','"%~dp0\build\ndk-build.cmd"')|Set-Content -Encoding UTF8 "${ndkRoot}\ndk-build.cmd"
