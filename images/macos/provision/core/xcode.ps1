@@ -22,6 +22,7 @@ $xcodeVersions | ForEach-Object -ThrottleLimit $threadCount -Parallel {
     Import-Module "$env:HOME/image-generation/helpers/Common.Helpers.psm1"
     Import-Module "$env:HOME/image-generation/helpers/Xcode.Installer.psm1"
     $ErrorActionPreference = "Stop"
+    $env:RUBYOPT="-W:no-deprecated -W:no-experimental"
     Install-XcodeVersion -Version $_.version -LinkTo $_.link
     Confirm-XcodeIntegrity -Version $_.link
     Approve-XcodeLicense -Version $_.link
