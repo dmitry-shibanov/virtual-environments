@@ -14,7 +14,7 @@ $os = Get-OSVersion
 $xcodeVersions = Get-ToolsetValue "xcode.versions"
 $defaultXcode = Get-ToolsetValue "xcode.default"
 [Array]::Reverse($xcodeVersions)
-$threadCount = [Environment]::ProcessorCount
+$threadCount = [Environment]::ProcessorCount - 2
 
 Write-Host "ProcessorCount is $threadCount"
 Write-Host "Installing Xcode versions..."
