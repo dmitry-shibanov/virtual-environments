@@ -14,7 +14,7 @@ function Install-XcodeVersion {
         $xcodeXipDirectory = Invoke-DownloadXcodeArchive -DownloadDirectory $xcodeDownloadDirectory -Version $Version
     } catch {
         Write-Host "Errors are $_"
-        If ($_ - Match "nil versions are discouraged and will be deprecated in Rubygems 4") {
+        If (-not ("$_" -Match "nil versions are discouraged and will be deprecated in Rubygems 4")) {
             throw $_
         }
     }
