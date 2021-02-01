@@ -10,7 +10,14 @@ function Install-XcodeVersion {
 
     $xcodeDownloadDirectory = "$env:HOME/Library/Caches/XcodeInstall"
     $xcodeTargetPath = Get-XcodeRootPath -Version $LinkTo
-    $xcodeXipDirectory = Invoke-DownloadXcodeArchive -DownloadDirectory $xcodeDownloadDirectory -Version $Version
+    try {
+        $xcodeXipDirectory = Invoke-DownloadXcodeArchive -DownloadDirectory $xcodeDownloadDirectory -Version $Version
+    } catch {
+        Write-Host "Errors are $_"
+        If ($_ - Match "nil versions are discouraged and will be deprecated in Rubygems 4") {
+            throw $_
+        }
+    }
     Expand-XcodeXipArchive -DownloadDirectory $xcodeXipDirectory -TargetPath $xcodeTargetPath
 
     Remove-Item -Path $xcodeXipDirectory -Force -Recurse
