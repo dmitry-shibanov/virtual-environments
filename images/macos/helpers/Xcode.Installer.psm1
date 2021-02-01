@@ -31,7 +31,11 @@ function Invoke-DownloadXcodeArchive {
 
     # TO-DO: Consider replacing of xcversion with own implementation
     Write-Host "Downloading Xcode $resolvedVersion"
-    Invoke-ValidateCommand "xcversion install '$resolvedVersion' --no-install" -ErrorVariable xcversionError -ErrorAction SilentlyContinue | Out-Host
+    $output = & bash -c "xcversion install '$resolvedVersion' --no-install 2>&1"
+    $commandOutputIndent = " " * 4
+    $commandOutput = ($output | ForEach-Object { "${commandOutputIndent}${_}" }) -join "`n"
+    Write-Host "$commandOutput"
+
     if ($xcversionError){
         Write-Host "Xcode $Version errors are $xcversionError"
     }
