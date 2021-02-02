@@ -22,7 +22,16 @@ $xcodeVersions | ForEach-Object -ThrottleLimit $threadCount -Parallel {
     Import-Module "$env:HOME/image-generation/helpers/Common.Helpers.psm1"
     Import-Module "$env:HOME/image-generation/helpers/Xcode.Installer.psm1"
     $ErrorActionPreference = "Stop"
-    Install-XcodeVersion -Version $_.version -LinkTo $_.link
+    try {
+        Install-XcodeVersion -Version $_.version -LinkTo $_.link
+    } catch {
+        $rubyErrors = $Error | where{ $_ -Match "nil versions are discouraged and will be deprecated in Rubygems 4" }
+        Write-Host "ruby errors are $rubyErrors"
+        Write-Host "Errors are $_"
+        If (-not ("$_" -Match "nil versions are discouraged and will be deprecated in Rubygems 4")) {
+            throw $_
+        }
+    }
 }
 
 $xcodeVersions | ForEach-Object -ThrottleLimit $threadCount -Parallel {
