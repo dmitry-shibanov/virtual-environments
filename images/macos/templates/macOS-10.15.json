@@ -142,6 +142,12 @@
         },
         {
             "type": "shell",
+            "inline": [
+                "pwsh -C \"Enable-ExperimentalFeature PSNotApplyErrorActionToStderr\""
+            ]
+        },
+        {
+            "type": "shell",
             "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} pwsh -f {{ .Path }}",
             "script": "./provision/core/xcode.ps1",
             "environment_vars": [
