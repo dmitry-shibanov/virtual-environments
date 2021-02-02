@@ -10,14 +10,7 @@ function Install-XcodeVersion {
 
     $xcodeDownloadDirectory = "$env:HOME/Library/Caches/XcodeInstall"
     $xcodeTargetPath = Get-XcodeRootPath -Version $LinkTo
-    try {
-        $xcodeXipDirectory = Invoke-DownloadXcodeArchive -DownloadDirectory $xcodeDownloadDirectory -Version $Version
-    } catch {
-        Write-Host "Errors are $_"
-        If ($_ - Match "nil versions are discouraged and will be deprecated in Rubygems 4") {
-            throw $_
-        }
-    }
+    $xcodeXipDirectory = Invoke-DownloadXcodeArchive -DownloadDirectory $xcodeDownloadDirectory -Version $Version
     Expand-XcodeXipArchive -DownloadDirectory $xcodeXipDirectory -TargetPath $xcodeTargetPath
 
     Remove-Item -Path $xcodeXipDirectory -Force -Recurse
@@ -43,9 +36,6 @@ function Invoke-DownloadXcodeArchive {
     $commandOutput = ($output | ForEach-Object { "${commandOutputIndent}${_}" }) -join "`n"
     Write-Host "$commandOutput"
 
-    if ($xcversionError){
-        Write-Host "Xcode $Version errors are $xcversionError"
-    }
     $xcodeXipName = "$resolvedVersion" -replace " ", "_"
     $xcodeXipFile = Get-ChildItem -Path $DownloadDirectory -Filter "Xcode_$xcodeXipName.xip" | Select-Object -First 1
     $tempXipDirectory = New-Item -Path $DownloadDirectory -Name "Xcode$xcodeXipName" -ItemType "Directory"
@@ -72,7 +62,7 @@ function Resolve-ExactXcodeVersion {
 }
 
 function Get-AvailableXcodeVersions {
-    $rawVersionsList = & xcversion list | ForEach-Object { $_.Trim() } | Where-Object { $_ -match "^\d" }
+    $rawVersionsList = & bash -c "xcversion list 2>&1" | ForEach-Object { $_.Trim() } | Where-Object { $_ -match "^\d" }
     $availableVersions = $rawVersionsList | ForEach-Object {
         $partStable,$partMajor = $_.Split(" ", 2)
         $semver = $stableSemver = [SemVer]::Parse($partStable)
