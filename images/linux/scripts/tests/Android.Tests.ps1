@@ -24,7 +24,7 @@ Describe "Android" {
 
     if (Test-IsUbuntu20) {
         [string]$ndkLatestVersion = Get-ToolsetValue "android.ndk.latest"
-        $ndkLatestFullVersion = (Get-ChildItem "$env:ANDROID_HOME/ndk/$ndkLatestVersion.*" | Select-Object -Last 1).Name
+        $ndkLatestFullVersion = (Get-ChildItem "/usr/local/lib/android/sdk/ndk/$ndkLatestVersion.*" | Select-Object -Last 1).Name
         $androidPackages += @("ndk/$ndkLatestFullVersion")
     }
     
