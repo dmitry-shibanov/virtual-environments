@@ -11,6 +11,7 @@ function Install-XcodeVersion {
     # Spaceship Apple ID login fails due to Apple ID prompting to be upgraded to 2FA.
     # https://github.com/fastlane/fastlane/pull/18116
     $env:SPACESHIP_SKIP_2FA_UPGRADE = 1
+    $env:SPACESHIP_SKIP_UPGRADE_2FA_LATER = 1
 
     $xcodeDownloadDirectory = "$env:HOME/Library/Caches/XcodeInstall"
     $xcodeTargetPath = Get-XcodeRootPath -Version $LinkTo
