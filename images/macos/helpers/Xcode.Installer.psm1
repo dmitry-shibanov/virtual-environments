@@ -8,11 +8,6 @@ function Install-XcodeVersion {
         [string]$LinkTo
     )
 
-    # Spaceship Apple ID login fails due to Apple ID prompting to be upgraded to 2FA.
-    # https://github.com/fastlane/fastlane/pull/18116
-    $env:SPACESHIP_SKIP_2FA_UPGRADE = 1
-    $env:SPACESHIP_SKIP_UPGRADE_2FA_LATER = 1
-
     $xcodeDownloadDirectory = "$env:HOME/Library/Caches/XcodeInstall"
     $xcodeTargetPath = Get-XcodeRootPath -Version $LinkTo
     $xcodeXipDirectory = Invoke-DownloadXcodeArchive -DownloadDirectory $xcodeDownloadDirectory -Version $Version
@@ -37,6 +32,7 @@ function Invoke-DownloadXcodeArchive {
     # TO-DO: Consider replacing of xcversion with own implementation
     Write-Host "Downloading Xcode $resolvedVersion"
     $output = & bash -c "xcversion install '$resolvedVersion' --no-install 2>&1"
+    Write-Host "Downloading Xcode $resolvedVersion done"
     $commandOutputIndent = " " * 4
     $commandOutput = ($output | ForEach-Object { "${commandOutputIndent}${_}" }) -join "`n"
     Write-Host "$commandOutput"
@@ -67,7 +63,9 @@ function Resolve-ExactXcodeVersion {
 }
 
 function Get-AvailableXcodeVersions {
+    Write-Host "get the list of Xcode"
     $rawVersionsList = & bash -c "xcversion list 2>&1" | ForEach-Object { $_.Trim() } | Where-Object { $_ -match "^\d" }
+    Write-Host "get the list of Xcode done $rawVersionsList"
     $availableVersions = $rawVersionsList | ForEach-Object {
         $partStable,$partMajor = $_.Split(" ", 2)
         $semver = $stableSemver = [SemVer]::Parse($partStable)

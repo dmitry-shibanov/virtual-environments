@@ -10,6 +10,12 @@ if ([string]::IsNullOrEmpty($env:XCODE_INSTALL_USER) -or [string]::IsNullOrEmpty
     throw "Required environment variables XCODE_INSTALL_USER and XCODE_INSTALL_PASSWORD are not set"
 }
 
+# Spaceship Apple ID login fails due to Apple ID prompting to be upgraded to 2FA.
+# https://github.com/fastlane/fastlane/pull/18116
+$env:SPACESHIP_SKIP_2FA_UPGRADE = 1
+
+$check = & xcversion list | ForEach-Object { $_.Trim() } | Where-Object { $_ -match "^\d" }
+
 $os = Get-OSVersion
 $xcodeVersions = Get-ToolsetValue "xcode.versions"
 $defaultXcode = Get-ToolsetValue "xcode.default"
@@ -17,7 +23,7 @@ $defaultXcode = Get-ToolsetValue "xcode.default"
 $threadCount = [Environment]::ProcessorCount
 
 Write-Host "Installing Xcode versions..."
-$xcodeVersions | ForEach-Object -ThrottleLimit $threadCount -Parallel {
+$xcodeVersions | ForEach-Object -ThrottleLimit "5" -Parallel {
     $ErrorActionPreference = "Stop"
     Import-Module "$env:HOME/image-generation/helpers/Common.Helpers.psm1"
     Import-Module "$env:HOME/image-generation/helpers/Xcode.Installer.psm1"
