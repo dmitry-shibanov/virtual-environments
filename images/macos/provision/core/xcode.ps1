@@ -23,7 +23,7 @@ $defaultXcode = Get-ToolsetValue "xcode.default"
 $threadCount = [Environment]::ProcessorCount
 
 Write-Host "Installing Xcode versions..."
-$xcodeVersions | ForEach-Object -ThrottleLimit "5" -Parallel {
+$xcodeVersions | ForEach-Object -ThrottleLimit $threadCount -Parallel {
     $ErrorActionPreference = "Stop"
     Import-Module "$env:HOME/image-generation/helpers/Common.Helpers.psm1"
     Import-Module "$env:HOME/image-generation/helpers/Xcode.Installer.psm1"
