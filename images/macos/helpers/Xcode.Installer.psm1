@@ -31,6 +31,7 @@ function Invoke-DownloadXcodeArchive {
     # TO-DO: Consider replacing of xcversion with own implementation
     Write-Host "Downloading Xcode $resolvedVersion"
     Invoke-ValidateCommand "xcversion install '$resolvedVersion' --no-install"
+    rm -rf ~/.fastlane/spaceship/*
 }
 
 function Resolve-ExactXcodeVersion {
@@ -52,6 +53,7 @@ function Resolve-ExactXcodeVersion {
 
 function Get-AvailableXcodeVersions {
     $rawVersionsList = & xcversion list | ForEach-Object { $_.Trim() } | Where-Object { $_ -match "^\d" }
+    rm -rf ~/.fastlane/spaceship/*
     $availableVersions = $rawVersionsList | ForEach-Object {
         $partStable,$partMajor = $_.Split(" ", 2)
         $semver = $stableSemver = [SemVer]::Parse($partStable)
