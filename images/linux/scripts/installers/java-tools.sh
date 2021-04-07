@@ -56,7 +56,7 @@ update-java-alternatives -s /usr/lib/jvm/adoptopenjdk-${DEFAULT_JDK_VERSION}-hot
 echo "JAVA_HOME=/usr/lib/jvm/adoptopenjdk-${DEFAULT_JDK_VERSION}-hotspot-amd64" | tee -a /etc/environment
 
 # add extra permissions to be able execute command without sudo
-chmod -R 777 /usr/lib/jvm
+chmod -R a+rwx /usr/lib/jvm
 # Install Ant
 apt-fast install -y --no-install-recommends ant ant-optional
 echo "ANT_HOME=/usr/share/ant" | tee -a /etc/environment
