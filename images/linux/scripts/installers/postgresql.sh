@@ -25,4 +25,4 @@ rm /etc/apt/sources.list.d/pgdg.list
 
 echo "postgresql $REPO_URL" >> $HELPER_SCRIPTS/apt-sources.txt
 
-invoke_tests "Databases" "PostgreSQL"
+# invoke_tests "Databases" "PostgreSQL"

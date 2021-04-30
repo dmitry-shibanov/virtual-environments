@@ -13,4 +13,4 @@ download_with_retries $URL "/tmp"
 tar xzf /tmp/aliyun-cli-linux-*-amd64.tgz
 mv aliyun /usr/local/bin
 
-invoke_tests "CLI.Tools" "Aliyun CLI"
+# invoke_tests "CLI.Tools" "Aliyun CLI"

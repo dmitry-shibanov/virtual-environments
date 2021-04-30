@@ -13,4 +13,4 @@ url=$(curl -s https://api.github.com/repos/cli/cli/releases/latest | jq -r '.ass
 download_with_retries $url "/tmp"
 apt install /tmp/gh_*_linux_amd64.deb
 
-invoke_tests "CLI.Tools" "GitHub CLI"
+# invoke_tests "CLI.Tools" "GitHub CLI"

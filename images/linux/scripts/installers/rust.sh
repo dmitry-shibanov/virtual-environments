@@ -34,4 +34,4 @@ ln -sf $RUSTUP_HOME .rustup
 ln -sf $CARGO_HOME .cargo
 popd
 
-invoke_tests "Tools" "Rust"
+# invoke_tests "Tools" "Rust"

@@ -27,4 +27,4 @@ for package in $pipx_packages; do
 
 done
 
-invoke_tests "Common" "PipxPackages"
+# invoke_tests "Common" "PipxPackages"

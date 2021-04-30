@@ -7,6 +7,8 @@
 availableSpaceMB=$(df / -hm | sed 1d | awk '{ print $4}')
 minimumFreeSpaceMB=15000
 
+df -h
+
 echo "Available disk space: $availableSpaceMB MB"
 
 if [ $RUN_VALIDATION != "true" ]; then

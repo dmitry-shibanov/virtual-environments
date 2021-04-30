@@ -8,4 +8,4 @@
 # Install Sphinx
 apt-get install -y sphinxsearch
 
-invoke_tests "Tools" "Sphinx"
+# invoke_tests "Tools" "Sphinx"

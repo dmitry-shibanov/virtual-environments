@@ -11,4 +11,4 @@ add-apt-repository ppa:ansible/ansible
 apt-get update
 apt-get install -y --no-install-recommends ansible
 
-invoke_tests "Tools" "Ansible"
+# invoke_tests "Tools" "Ansible"

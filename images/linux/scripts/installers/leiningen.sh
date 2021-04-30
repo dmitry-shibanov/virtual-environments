@@ -16,4 +16,4 @@ LEIN_JAR=$(find $LEIN_HOME -name "leiningen-*-standalone.jar")
 echo "LEIN_JAR=$LEIN_JAR" | tee -a /etc/environment
 echo "LEIN_HOME=$LEIN_HOME" | tee -a /etc/environment
 
-invoke_tests "Tools" "Leiningen"
+# invoke_tests "Tools" "Leiningen"

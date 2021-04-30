@@ -14,4 +14,4 @@ download_with_retries https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_J
 tar xjf /tmp/$PHANTOM_JS.tar.bz2 -C /usr/local/share
 ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin
 
-invoke_tests "Tools" "Phantomjs"
+# invoke_tests "Tools" "Phantomjs"

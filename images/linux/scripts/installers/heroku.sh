@@ -7,4 +7,4 @@
 # Install Heroku CLI
 curl https://cli-assets.heroku.com/install.sh | sh
 
-invoke_tests "Tools" "Heroku"
+# invoke_tests "Tools" "Heroku"

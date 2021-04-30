@@ -21,4 +21,4 @@ SELENIUM_JAR_PATH="/usr/share/java/selenium-server-standalone.jar"
 mv $SELENIUM_JAR_NAME $SELENIUM_JAR_PATH
 echo "SELENIUM_JAR_PATH=$SELENIUM_JAR_PATH" | tee -a /etc/environment
 
-invoke_tests "Tools" "Selenium"
+# invoke_tests "Tools" "Selenium"

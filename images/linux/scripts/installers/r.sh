@@ -12,4 +12,4 @@ sudo add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $osLab
 sudo apt update
 sudo apt install r-base
 
-invoke_tests "Tools" "R"
+# invoke_tests "Tools" "R"

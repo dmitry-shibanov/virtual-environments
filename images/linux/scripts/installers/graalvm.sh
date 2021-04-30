@@ -18,4 +18,4 @@ setEtcEnvironmentVariable "GRAALVM_11_ROOT" $GRAALVM_11_ROOT
 # Install Native Image
 $GRAALVM_11_ROOT/bin/gu install native-image
 
-invoke_tests "Tools" "GraalVM"
+# invoke_tests "Tools" "GraalVM"

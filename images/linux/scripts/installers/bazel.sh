@@ -12,4 +12,4 @@ npm install -g @bazel/bazelisk
 # run bazelisk once in order to instal /usr/local/bin/bazel binary
 bazelisk
 
-invoke_tests "Tools" "Bazel"
+# invoke_tests "Tools" "Bazel"

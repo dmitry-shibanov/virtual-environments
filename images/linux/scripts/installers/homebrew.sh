@@ -37,4 +37,4 @@ for package in $brew_packages; do
     fi
 done
 
-invoke_tests "Tools" "Homebrew"
+# invoke_tests "Tools" "Homebrew"

@@ -10,4 +10,4 @@ curl -LO "https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKE
 unzip -qq "packer_${PACKER_VERSION}_linux_amd64.zip" -d /usr/local/bin
 rm -f "packer_${PACKER_VERSION}_linux_amd64.zip"
 
-invoke_tests "Tools" "Packer"
+# invoke_tests "Tools" "Packer"

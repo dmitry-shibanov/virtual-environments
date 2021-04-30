@@ -16,4 +16,4 @@ cd /tmp
 download_with_retries $ORAS_CLI_DOWNLOAD_URL
 tar xzf $ORAS_CLI_ARCHIVE -C /usr/local/bin oras
 
-invoke_tests "CLI.Tools" "Oras CLI"
+# invoke_tests "CLI.Tools" "Oras CLI"

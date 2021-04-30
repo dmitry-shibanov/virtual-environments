@@ -29,4 +29,4 @@ if isUbuntu16; then
     ln -sf g++-5 /usr/bin/g++
 fi
 
-invoke_tests "Tools" "Vcpkg"
+# invoke_tests "Tools" "Vcpkg"

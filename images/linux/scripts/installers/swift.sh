@@ -25,4 +25,4 @@ ln -s "$SWIFT_BIN" /usr/local/bin/swift
 ln -s "$SWIFTC_BIN" /usr/local/bin/swiftc
 echo "SWIFT_PATH=$SWIFT_PATH" | tee -a /etc/environment
 
-invoke_tests "Common" "Swift"
+# invoke_tests "Common" "Swift"

@@ -24,4 +24,4 @@ tar -C "${julia_installation_path}" -xzf "${julia_tar_tmp}" --strip-components=1
 ln -s "${julia_installation_path}/bin/julia" /usr/bin/julia
 rm "${julia_tar_tmp}"
 
-invoke_tests "Tools" "Julia"
+# invoke_tests "Tools" "Julia"

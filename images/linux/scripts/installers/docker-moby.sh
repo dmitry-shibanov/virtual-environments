@@ -45,4 +45,4 @@ done
 # stored from earlier.
 docker logout
 
-invoke_tests "Tools" "Docker"
+# invoke_tests "Tools" "Docker"

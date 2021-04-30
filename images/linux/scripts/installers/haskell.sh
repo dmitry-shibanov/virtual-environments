@@ -53,4 +53,4 @@ curl -sSL https://get.haskellstack.org/ | sh
 echo "ghc ppa:hvr/ghc" >> $HELPER_SCRIPTS/apt-sources.txt
 add-apt-repository --remove ppa:hvr/ghc
 
-invoke_tests "Haskell"
+# invoke_tests "Haskell"

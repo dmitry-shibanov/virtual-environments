@@ -66,4 +66,4 @@ setEtcEnvironmentVariable DOTNET_NOLOGO 1
 setEtcEnvironmentVariable DOTNET_MULTILEVEL_LOOKUP 0
 prependEtcEnvironmentPath '$HOME/.dotnet/tools'
 
-invoke_tests "DotnetSDK"
+# invoke_tests "DotnetSDK"

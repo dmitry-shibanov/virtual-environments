@@ -25,4 +25,4 @@ rm /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
 # Document source repo
 echo "containers $REPO_URL" >> $HELPER_SCRIPTS/apt-sources.txt
 
-invoke_tests "Tools" "Containers"
+# invoke_tests "Tools" "Containers"

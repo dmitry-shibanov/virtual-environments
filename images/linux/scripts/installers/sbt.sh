@@ -12,4 +12,4 @@ download_with_retries "https://github.com/sbt/sbt/releases/download/v${sbtVersio
 tar zxf /tmp/sbt.tgz -C /usr/share
 ln -s /usr/share/sbt/bin/sbt /usr/bin/sbt
 
-invoke_tests "Tools" "Sbt"
+# invoke_tests "Tools" "Sbt"

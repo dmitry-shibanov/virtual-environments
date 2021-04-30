@@ -14,4 +14,4 @@ echo "deb https://download.mono-project.com/repo/ubuntu stable-$LSB_CODENAME mai
 apt-get update
 apt-get install -y --no-install-recommends apt-transport-https mono-complete nuget
 
-invoke_tests "Tools" "Mono"
+# invoke_tests "Tools" "Mono"

@@ -54,4 +54,4 @@ for TOOLSET_VERSION in ${TOOLSET_VERSIONS[@]}; do
     fi
 done
 
-invoke_tests "Tools" "Ruby"
+# invoke_tests "Tools" "Ruby"

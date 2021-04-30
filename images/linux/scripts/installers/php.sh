@@ -105,4 +105,4 @@ rm -r /etc/apt/sources.list.d/ondrej-ubuntu-php-*
 echo "php $REPO_URL" >> $HELPER_SCRIPTS/apt-sources.txt
 apt-get update
 
-invoke_tests "Common" "PHP"
+# invoke_tests "Common" "PHP"
