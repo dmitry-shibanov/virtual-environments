@@ -10,8 +10,7 @@ source $HELPER_SCRIPTS/os.sh
 source $HELPER_SCRIPTS/install.sh
 
 # add repository
-REPO_URL="ppa:ondrej/php"
-apt-add-repository $REPO_URL -y
+apt-add-repository ppa:ondrej/php -y
 apt-get update
 
 # Install PHP
@@ -36,6 +35,7 @@ for version in $php_versions; do
         php$version-gd \
         php$version-gmp \
         php$version-igbinary \
+        php$version-imagick \
         php$version-imap \
         php$version-interbase \
         php$version-intl \
@@ -75,6 +75,18 @@ for version in $php_versions; do
     if [[ $version != "8.0" ]]; then
         apt-fast install -y --no-install-recommends php$version-xmlrpc php$version-json
     fi
+
+    if [[ $version != "5.6" && $version != "7.0" ]]; then
+        apt-fast install -y --no-install-recommends php$version-pcov
+
+        # Disable PCOV, as Xdebug is enabled by default
+        # https://github.com/krakjoe/pcov#interoperability
+        phpdismod -v $version pcov
+    fi
+
+    if [[ $version = "7.0" || $version = "7.1" ]]; then
+        apt-fast install -y --no-install-recommends php$version-sodium
+    fi
 done
 
 apt-fast install -y --no-install-recommends php-pear
@@ -99,10 +111,11 @@ wget -q -O phpunit https://phar.phpunit.de/phpunit-8.phar
 chmod +x phpunit
 mv phpunit /usr/local/bin/phpunit
 
-# remove repository after successfull installation
-rm -r /etc/apt/sources.list.d/ondrej-ubuntu-php-*
-
-echo "php $REPO_URL" >> $HELPER_SCRIPTS/apt-sources.txt
-apt-get update
+# ubuntu 20.04 libzip-dev is libzip5 based and is not compatible libzip-dev of ppa:ondrej/php
+# see https://github.com/actions/virtual-environments/issues/1084
+if isUbuntu20 ; then
+  rm /etc/apt/sources.list.d/ondrej-ubuntu-php-focal.list
+  apt-get update
+fi
 
 # invoke_tests "Common" "PHP"
